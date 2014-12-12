@@ -1,0 +1,14 @@
+<div class="container-fluid" ng-controller="wxKeyCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">关键字管理</div>
+        <div class="panel-body">
+            <div class="input-group">
+                <input type="search" ng-value="key" class="form-control" placeholder="输入关键字"/>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="search();">搜索</button></span>
+            </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in items">{{item.name}}</li>
+        </ul>
+    </div>
+</div>

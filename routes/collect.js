@@ -7,13 +7,17 @@ var express = require('express'),
     fs = require('fs'),
     libxmljs = require("libxmljs"),
     request = require('request'),
-    jquery = fs.readFileSync('./public/scripts/jquery-2.1.1.min.js', 'utf-8');
+    jquery = fs.readFileSync('./app/script/lib/jquery-2.1.1.min.js', 'utf-8');
 //router.use(function (req, res, next) {
 //    console.log(req.params);
 //    next();
 //});
 
-//采集微信号
+
+/*
+ 采集微信号
+url:/collect/wx/关键字/页数
+*/
 router.get('/wx/:key/:page', function (req, res) {
     jsdom.env({
         url: 'http://weixin.sogou.com/weixin?query=' + req.params.key + '&page=' + req.params.page + '&ie=utf8',
@@ -41,7 +45,11 @@ router.get('/wx/:key/:page', function (req, res) {
     });
 });
 
-//采集新闻列表
+
+/*
+ 采集新闻列表
+ url:/collect/wz/公众号openid/页数
+ */
 router.get('/wz/list/:openid/:page', function (req, res) {
     var result = [];
     request('http://weixin.sogou.com/gzhjs?cb=zclwx&openid=' + req.params.openid + '&page=' + req.params.page + '&t=' + Math.random(), function (error, response, body) {

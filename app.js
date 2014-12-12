@@ -13,14 +13,14 @@ var app = express();
 
 app.use(morgan('dev'));
 app.engine('.html', ejs.__express);
+app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(express.static(__dirname + '/public'));
-
+app.use(express.static(__dirname + '/app'));
 // development only
 if ('development' == app.get('env')) {
     app.use(errorHandler());
