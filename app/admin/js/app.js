@@ -1,7 +1,7 @@
 /**
  * Created by chuanlong on 2014/12/12.
  */
-var myApp = angular.module('myApp', ['ui.router']);
+var myApp = angular.module('myApp', ['ui.router','ngResource']);
 myApp.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/index');
     $stateProvider.state('index', {
