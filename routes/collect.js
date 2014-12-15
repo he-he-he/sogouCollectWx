@@ -8,6 +8,7 @@ var express = require('express'),
     libxmljs = require("libxmljs"),
     request = require('request'),
     jquery = fs.readFileSync('./app/script/lib/jquery-2.1.1.min.js', 'utf-8');
+
 //router.use(function (req, res, next) {
 //    console.log(req.params);
 //    next();

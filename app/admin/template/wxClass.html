@@ -1,0 +1,39 @@
+<div class="panel panel-default" ng-controller="classCtrl">
+    <div class="panel-heading">类别管理</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-5">
+                <input type="text" class="form-control" placeholder="类别名称" ng-model="className">
+            </div>
+            <div class="col-md-5">
+                <button type="submit" class="btn btn-default" ng-show="!isEdit" ng-click="addClass()">添加</button>
+                <button type="submit" class="btn btn-default" ng-show="isEdit" ng-click="editClass(id)">修改</button>
+            </div>
+        </div>
+        <br/>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>类别名称</td>
+                <td>修改</td>
+                <td>删除</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{item.id}}</td>
+                <td>{{item.classname}}</td>
+                <td>
+                    <button type="button" class="btn btn-info" ng-click="EditShow()">修改</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" ng-click="delClass(item.id)">删除</button>
+                </td>
+
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
