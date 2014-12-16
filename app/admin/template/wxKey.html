@@ -2,36 +2,52 @@
     <div class="panel panel-default">
         <div class="panel-heading">关键字管理</div>
         <div class="panel-body">
-            <div class="input-group">
-                <input type="search" ng-model="key" class="form-control" placeholder="输入关键字"/>
-                <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="search();">搜索
-                </button></span>
-            </div>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="item in items">{{item.id}}-{{item.name}}</li>
-        </ul>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">添加关键字</div>
-        <div class="panel-body">
             <div class="row">
-                <div class="col-md-5">
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                <div class="col-md-2">
+                    <select class="form-control" ng-model="classId" ng-options="m.classname for m in classItems">
+                        <option value="">-- 请选择 --</option>
                     </select>
                 </div>
-                <div class="col-md-5">
-                    <input type="text" class="form-control" placeholder="Text input">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="关键字" ng-model="key">
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-default">Default</button>
+                    <button type="button" class="btn btn-default" ng-show="!isEdit" ng-click="addKey()">添加</button>
+                    <button type="button" class="btn btn-default" ng-show="isEdit">修改</button>
+                    <button type="button" class="btn btn-default" ng-show="isEdit">取消</button>
                 </div>
             </div>
+            <br/>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>类别名称</td>
+                    <td>关键字</td>
+                    <td>修改</td>
+                    <td>删除</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in keyItems" ng-class="item.flag==0?'danger':''">
+                    <td>{{item.id}}</td>
+                    <td>{{item.classname}}</td>
+                    <td>{{item.wxkey}}</td>
+                    <td>
+                        <button type="button" class="btn btn-info" ng-click="editShow($index)">修改{{$index}}</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" ng-click="stopKey(item.id)">禁用</button>
+                        <button type="button" class="btn btn-danger" ng-click="startKey(item.id)">启用</button>
+                    </td>
+
+                </tr>
+                </tbody>
+
+            </table>
         </div>
+
+
     </div>
 </div>

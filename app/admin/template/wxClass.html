@@ -8,6 +8,7 @@
             <div class="col-md-5">
                 <button type="submit" class="btn btn-default" ng-show="!isEdit" ng-click="addClass()">添加</button>
                 <button type="submit" class="btn btn-default" ng-show="isEdit" ng-click="editClass(id)">修改</button>
+                <button type="submit" class="btn btn-default" ng-show="isEdit" ng-click="cancelClass()">取消</button>
             </div>
         </div>
         <br/>
@@ -21,14 +22,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in items">
+            <tr ng-repeat="item in classItems" ng-class="item.flag==0?'danger':''">
                 <td>{{item.id}}</td>
                 <td>{{item.classname}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" ng-click="EditShow()">修改</button>
+                    <button type="button" class="btn btn-info" ng-click="editShow($index)">修改{{$index}}</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" ng-click="delClass(item.id)">删除</button>
+                    <button type="button" class="btn btn-danger" ng-click="stopClass(item.id)">禁用</button>
+                    <button type="button" class="btn btn-danger" ng-click="startClass(item.id)">启用</button>
                 </td>
 
             </tr>

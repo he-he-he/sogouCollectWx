@@ -5,41 +5,56 @@ var express = require('express'),
     router = express.Router(),
     db = require('../lib/mysql');
 
-//获取关键字
-router.get('/key/:keyId', function (req, res) {
-    db.test(function (data) {
-        res.json(data)
-    });
-});
-//添加关键字
-router.post('/key/:key/:classId', function (req, res) {
-    var key = req.params.key,
-        classId = req.params.classid,
-        msg = 'ok';
-    db.addKey({classid: classId, wxKey: key, flag: 1}, function (result) {
-        if (result < 0) {
-            msg = 'err';
-        }
-        res.json({msg: msg});
-    });
-});
 
-router.route('/class/:name?')
+//关键字管理
+router.route('/key/:id?')
     .get(function (req, res) {
-        db.getClass(function (result) {
+        db.keyManager.getKey(function (result) {
+            res.json(result);
+        })
+    }).post(function (req, res) {
+        db.keyManager.addKey({classid: req.body.classid, wxkey: req.body.wxkey, flag: 1}, function (result) {
+            res.json({id: result});
+        });
+    })
+    .put(function (req, res) {
+        if (req.body.wxkey != null) {
+            db.keyManager.updateKey(req.body.id, req.body.wxkey);
+            res.send('update');
+        } else if (req.body.flag != null) {
+            db.keyManager.statusKey(req.body.flag,req.body.id);
+            res.send('status');
+        } else {
+            res.send('err');
+        }
+    });
+
+
+//类别路由
+router.route('/class/:id?')
+    .post(function (req, res) {
+        var className = req.body.name;
+        db.classManager.addClass({className: className}, function (result) {
+            res.json({id: result});
+        });
+    })
+    .get(function (req, res) {
+        db.classManager.getClass(function (result) {
             res.json(result);
         });
     })
-    .post(function (req, res) {
-        var className = req.body.name;
-        db.addClass({className: className}, function (result) {
-            res.json({id: result});
-        });
+    .put(function (req, res) {
+        if(req.body.name!=null){
+            db.classManager.updateClass(req.body.id, req.body.name);
+            res.send('update');
+        }else if(req.body.flag!=null){
+            db.classManager.statusClass(req.body.flag,req.body.id);
+            res.send('status');
+        }else{
+            res.send('err');
+        }
+
     });
-router.route('/class/:id')
-    .delete(function (req, res) {
-        var id = req.params.id;
-        db.delClass(id);
-        res.send('delete');
-    });
+
+
 module.exports = router;
