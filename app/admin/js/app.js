@@ -15,8 +15,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl:'template/article.html'
     }).state('wxKey',{
         url:'/wxKey',
-        templateUrl:'template/wxKey.html',
-        controller:'wxKeyCtrl'
+        templateUrl:'template/wxKey.html'
     }).state('wxClass',{
         url:'/wxClass',
         templateUrl:'template/wxClass.html'

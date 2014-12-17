@@ -4,7 +4,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-2">
-                    <select class="form-control" ng-model="classId" ng-options="m.classname for m in classItems">
+                    <select class="form-control"  ng-change="selectAction()" ng-model="classItem" ng-options="m.classname for m in classItems">
                         <option value="">-- 请选择 --</option>
                     </select>
                 </div>
@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-md-2">
                     <button type="button" class="btn btn-default" ng-show="!isEdit" ng-click="addKey()">添加</button>
-                    <button type="button" class="btn btn-default" ng-show="isEdit">修改</button>
-                    <button type="button" class="btn btn-default" ng-show="isEdit">取消</button>
+                    <button type="button" class="btn btn-default" ng-show="isEdit" ng-click="editKey()">修改</button>
+                    <button type="button" class="btn btn-default" ng-show="isEdit" ng-click="cancelKey()">取消</button>
                 </div>
             </div>
             <br/>

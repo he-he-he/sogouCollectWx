@@ -19,7 +19,13 @@ router.route('/key/:id?')
     })
     .put(function (req, res) {
         if (req.body.wxkey != null) {
-            db.keyManager.updateKey(req.body.id, req.body.wxkey);
+            var data={};
+            if(req.body.classid===''){
+                data={wxkey:req.body.wxkey}
+            }else{
+                data={wxkey:req.body.wxkey,classid:req.body.classid}
+            }
+            db.keyManager.updateKey(req.body.id,data);
             res.send('update');
         } else if (req.body.flag != null) {
             db.keyManager.statusKey(req.body.flag,req.body.id);
@@ -53,8 +59,5 @@ router.route('/class/:id?')
         }else{
             res.send('err');
         }
-
     });
-
-
 module.exports = router;
