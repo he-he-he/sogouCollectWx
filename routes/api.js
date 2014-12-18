@@ -45,8 +45,8 @@ router.route('/class/:id?')
         });
     })
     .get(function (req, res) {
-        db.classManager.getClass(function (result) {
-            res.json(result);
+        db.classManager.getClassCount(function(result){
+            res.json({total:result});
         });
     })
     .put(function (req, res) {
@@ -60,4 +60,10 @@ router.route('/class/:id?')
             res.send('err');
         }
     });
+router.get('/class/:page',function(req,res){
+    var page=req.params.page;
+    db.classManager.getClass(page,function (result) {
+        res.json(result);
+    });
+});
 module.exports = router;

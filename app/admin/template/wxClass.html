@@ -26,7 +26,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.classname}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" ng-click="editShow($index)">修改{{$index}}</button>
+                    <button type="button" class="btn btn-info" ng-click="editShow($index)">修改</button>
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger" ng-click="stopClass(item.id)">禁用</button>
@@ -37,5 +37,16 @@
             </tbody>
 
         </table>
+        <nav>
+            <ul class="pagination">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+        </nav>
     </div>
 </div>
