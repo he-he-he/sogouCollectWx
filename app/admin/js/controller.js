@@ -85,5 +85,9 @@ myApp.controller('wxClassCtrl', function ($scope, $rootScope, wxClassApi) {
         $scope.id = null;
         $scope.className = null;
     };
-    $rootScope.classItems = wxClassApi.get();
+  //  $rootScope.classItems = wxClassApi.get();
+});
+
+myApp.controller('wxNumberCtrl',function($scope){
+
 });

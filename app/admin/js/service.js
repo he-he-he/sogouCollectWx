@@ -10,9 +10,9 @@ myApp.factory('wxKeyApi', function ($resource) {
 });
 myApp.factory('wxClassApi', function ($resource) {
     return $resource('/api/class/:id', {}, {
+        total: {method: 'GET', params: {}, isArray: false},
         get: {method: 'GET', params: {}, isArray: true},
         post: {method: 'POST', params: {}, isArray: false},
         put: {method: 'PUT', params: {}, isArray: false}
-
-    })
+    });
 });
