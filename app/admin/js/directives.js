@@ -1,37 +1,32 @@
 /**
  * Created by chuanlong on 2014/12/18.
  */
-myApp.directive('pager', function (wxClassApi) {
+//分页指令
+myApp.directive('pager', function () {
     return {
         restrict: 'E',
         replace: true,
-        scope: {},
         template: '<nav><ul class="pagination">' +
-        '<li><a href="#" data-num="{{}}">&laquo;</a></li>' +
-        '<li ng-repeat="item in items">' +
+        '<li><a href="javascript:;" data-num="{{firstIndex}}">&laquo;</a></li>' +
+        '<li ng-repeat="item in pageitems">' +
         '<a href="javascript:;" data-num="{{item}}">{{item}}</a></li>' +
-        '<li><a href="#">&raquo;</a></li>' +
+        '<li><a href="javascript:;" data-num="{{lastIndex}}">&raquo;</a></li>' +
         '</ul></nav>',
         link: function (scope, el, attrs) {
-            scope.items = [];
-            scope.index = 1;
+            scope.pageitems = [];
+            scope.firstIndex = 1;
+            scope.lastIndex = 1;
             scope.makeHtml = function (index, total) {
-                scope.items.length = 0;
+                scope.lastIndex=total;
+                scope.pageitems.length = 0;
                 for (var i = index; i <= total; i++) {
-                    scope.items.push(index);
+                    scope.pageitems.push(i);
                 }
             };
-            wxClassApi.total(function (result) {
-                scope.total = result.total;
-                scope.pageNum = Math.round(scope.total / 10);
-                scope.makeHtml(scope.index, scope.pageNum);
-            });
             el.on('click', function (e) {
                 var target = e.target;
-                console.log(target);
-                console.log(target.getAttribute('data-num'))
-                console.log("%o", target);
-                console.dir(target)
+                scope.index = target.getAttribute('data-num');
+                scope.getData(scope.index);
             });
         }
     }

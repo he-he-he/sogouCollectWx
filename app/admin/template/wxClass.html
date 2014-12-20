@@ -17,8 +17,7 @@
             <tr>
                 <td>ID</td>
                 <td>类别名称</td>
-                <td>修改</td>
-                <td>删除</td>
+                <td>操作</td>
             </tr>
             </thead>
             <tbody>
@@ -27,8 +26,6 @@
                 <td>{{item.classname}}</td>
                 <td>
                     <button type="button" class="btn btn-info" ng-click="editShow($index)">修改</button>
-                </td>
-                <td>
                     <button type="button" class="btn btn-danger" ng-click="stopClass(item.id)">禁用</button>
                     <button type="button" class="btn btn-danger" ng-click="startClass(item.id)">启用</button>
                 </td>
