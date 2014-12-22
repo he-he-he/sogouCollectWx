@@ -1,3 +1,29 @@
 <div ng-controller="wxNumberCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">微信账号管理</div>
+        <div class="panel-body">
 
+            <br/>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <td>id</td>
+                    <td>微信名称</td>
+                    <td>微信号</td>
+                    <td>头像</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in wxitems">
+                    <td>{{item.id}}</td>
+                    <td>{{item.wxCName}}</td>
+                    <td>{{item.Name}}</td>
+                    <td><img ng-src="item.wxHeadPic"></td>
+                    <td>操作</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

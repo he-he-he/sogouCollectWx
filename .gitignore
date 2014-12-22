@@ -30,3 +30,6 @@ node_modules
 .lock-wscript
 /.idea
 /.idea
+/bower_components/angular-resource
+/bower_components/angular-ui-router
+/bower_components/angular

@@ -7,6 +7,7 @@ var express = require('express'),
     fs = require('fs'),
     libxmljs = require("libxmljs"),
     request = require('request'),
+    db=require('../lib/mysql'),
     jquery = fs.readFileSync('./app/script/lib/jquery-2.1.1.min.js', 'utf-8');
 
 //router.use(function (req, res, next) {
@@ -19,9 +20,9 @@ var express = require('express'),
  采集微信号
 url:/collect/wx/关键字/页数
 */
-router.get('/wx/:key/:page', function (req, res) {
+var addWxAccount=function(keyid,key,page){
     jsdom.env({
-        url: 'http://weixin.sogou.com/weixin?query=' + req.params.key + '&page=' + req.params.page + '&ie=utf8',
+        url: 'http://weixin.sogou.com/weixin?query=' + key + '&page=' + page + '&ie=utf8',
         src: [jquery],
         done: function (err, window) {
             var $ = window.$;
@@ -41,10 +42,40 @@ router.get('/wx/:key/:page', function (req, res) {
                 html.push({headPic: head, openid: openid, wxCName: wxCName, wxName: wxName, gn: gn, rz: rz, rq: rq});
             });
             window.close();
-            res.json(html);
+            console.log(html)
+          //  res.json(html);
+            db.wxAccount.addAccount(keyid,html,function(result){
+                console.log(result)
+            });
         }
     });
-});
+};
+//router.get('/wx/:key/:page', function (req, res) {
+//    jsdom.env({
+//        url: 'http://weixin.sogou.com/weixin?query=' + req.params.key + '&page=' + req.params.page + '&ie=utf8',
+//        src: [jquery],
+//        done: function (err, window) {
+//            var $ = window.$;
+//            var html = [];
+//            $('._item').each(function () {
+//                var head = $(this).find('div.img-box img').attr('src');
+//                var openid = head.substring(head.lastIndexOf('/') + 1);
+//                var box = $(this).find('div.txt-box');
+//                var wxCName = $(box).find('h3').text();
+//                var wxName = $(box).find('h4').text().replace('微信号：', '').replace(/\n/g, '');
+//                var gn = $(box).find('.s-p3:eq(0) .sp-txt').text();
+//                var rq = $(this).find('div.pos-ico img:eq(1)').attr('src');
+//                var rz = '';
+//                if ($(box).find('.s-p3:eq(1)').text().indexOf('微信认证：') != -1) {
+//                    rz = $(box).find('.s-p3:eq(1) .sp-txt').text();
+//                }
+//                html.push({headPic: head, openid: openid, wxCName: wxCName, wxName: wxName, gn: gn, rz: rz, rq: rq});
+//            });
+//            window.close();
+//            res.json(html);
+//        }
+//    });
+//});
 
 
 /*
@@ -84,4 +115,5 @@ router.get('/wz/list/:openid/:page', function (req, res) {
     });
 });
 
-module.exports = router;
+//module.exports = router;
+exports.addWxAccount=addWxAccount;

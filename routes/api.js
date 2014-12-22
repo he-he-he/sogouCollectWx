@@ -3,14 +3,15 @@
  */
 var express = require('express'),
     router = express.Router(),
-    db = require('../lib/mysql');
+    db = require('../lib/mysql'),
+    collect=require('./collect');
 
 
 //关键字管理
 router.route('/key')
     .get(function (req, res) {
         db.keyManager.getKeyCount(function (result) {
-            res.json({total:result});
+            res.json({total: result});
         })
     })
     .post(function (req, res) {
@@ -87,12 +88,10 @@ router.get('/class/:page', function (req, res) {
 });
 
 router.route('/wx/Account')
-    .get(function(req,res){
-        db.wxAccount.getTotal(function(result){
-            req.json({total:result});
-        });
-    })
-    .post(function(req,res){
-
+    .post(function (req, res) {
+        var keyid = req.body.keyid;
+        var key = req.body.key;
+        collect.addWxAccount(keyid,key,1);
+        res.send('ok')
     });
 module.exports = router;

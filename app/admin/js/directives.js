@@ -17,6 +17,7 @@ myApp.directive('pager', function () {
             scope.firstIndex = 1;
             scope.lastIndex = 1;
             scope.makeHtml = function (index, total) {
+                console.log(index,total)
                 scope.lastIndex=total;
                 scope.pageitems.length = 0;
                 for (var i = index; i <= total; i++) {
@@ -25,8 +26,11 @@ myApp.directive('pager', function () {
             };
             el.on('click', function (e) {
                 var target = e.target;
-                scope.index = target.getAttribute('data-num');
-                scope.getData(scope.index);
+                if(target.nodeName==='A'){
+                    scope.index = target.getAttribute('data-num');
+                    scope.getData(scope.index);
+                }
+
             });
         }
     }

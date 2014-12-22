@@ -1,7 +1,7 @@
 /**
  * Created by chuanlong on 2014/12/12.
  */
-myApp.controller('wxKeyCtrl', function ($scope, $rootScope, wxKeyApi, wxClassApi) {
+myApp.controller('wxKeyCtrl', function ($scope, wxKeyApi, wxClassApi) {
     $scope.classItem = '';
     $scope.key = '';
     $scope.id = '';
@@ -58,7 +58,7 @@ myApp.controller('wxKeyCtrl', function ($scope, $rootScope, wxKeyApi, wxClassApi
     $scope.getData($scope.index);
     wxKeyApi.total(function (result) {
         $scope.total = result.total;
-        $scope.pageNum = Math.round($scope.total / 10);
+        $scope.pageNum = Math.ceil($scope.total / 10);
         $scope.makeHtml($scope.index, $scope.pageNum);
     });
 });
@@ -107,11 +107,22 @@ myApp.controller('wxClassCtrl', function ($scope, wxClassApi) {
     $scope.getData($scope.index);
     wxClassApi.total(function (result) {
         $scope.total = result.total;
-        $scope.pageNum = Math.round($scope.total / 10);
+        $scope.pageNum = Math.ceil($scope.total / 10);
         $scope.makeHtml($scope.index, $scope.pageNum);
     });
 });
-
-myApp.controller('wxNumberCtrl', function ($scope) {
-
+myApp.controller('wxKeyCollectCtrl', function ($scope,wxKeyApi,wxAccountApi) {
+    $scope.index = 1;
+    $scope.getData = function (index) {
+        $scope.keyItems = wxKeyApi.get({page: index});
+    };
+    $scope.Collect=function(keyid){
+        wxAccountApi.post({keyid:keyid,key:'雷锋'});
+    };
+    $scope.getData($scope.index);
+    wxKeyApi.total(function (result) {
+        $scope.total = result.total;
+        $scope.pageNum = Math.ceil($scope.total / 10);
+        $scope.makeHtml($scope.index, $scope.pageNum);
+    });
 });

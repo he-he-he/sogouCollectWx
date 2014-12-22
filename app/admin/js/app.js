@@ -19,5 +19,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     }).state('wxClass',{
         url:'/wxClass',
         templateUrl:'template/wxClass.html'
+    }).state('wxAccountCollect',{
+        url:'/wxAccountCollect',
+        templateUrl:'template/wxAccountCollect.html'
     })
 });
